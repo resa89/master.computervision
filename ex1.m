@@ -7,7 +7,7 @@ gray = rgb2gray(im_uint8);
 A = [cosd(alpha) -sind(alpha) 0; sind(alpha) cosd(alpha) 0; 0 0 1];
 A = transpose(A);
 
-which zxcvb
-abc = zxcvb(A, gray);
+%which transfrom % shows if string is a variable or function
+abc = transfrom(A, gray);
 
 imshow(abc);   % Bild darstellen
