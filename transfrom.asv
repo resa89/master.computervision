@@ -27,17 +27,14 @@ function outputPic = transfrom(A, gray, a0, neighbor)
                     interVal = gray(y,x);
                 else
                     % biliniar interpolation
-                    px11 = gray(yx0(1),yx0(2),:);
-                    px12 = gray(yx0(1),yx1(2),:);
-                    px21 = gray(yx1(1),yx0(2),:);
-                    px22 = gray(yx1(1),yx1(2),:);
+                    px12 = gray(yx0(1),yx0(2));
+                    px12f = gray(yx0(1),yx1(2));
                     
-                    interTop = wtConj(2) * px11 + wt(2) * px12;
-                    interBtm = wtConj(2) * px21 + wt(2) * px22;
-                    
+                    interTop = wtConj(2) * px12 + wt(2) * px12f;
+                    interBtm = wtConj(2) * gray(yx1(1),yx0(2)) + wt(2) * gray(yx1(1),yx1(2));
                     interVal=wtConj(1) * interTop + wt(1) * interBtm;
                 end
-                newM(i, j, :) = interVal(1,1,:);
+                newM(i, j) = interVal;
             end
         end
     end
