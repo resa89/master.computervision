@@ -1,6 +1,6 @@
 function outputPic = transfrom(A, gray, a0, neighbor)
     [m,n,o] = size(gray);
-    newM = zeros(m*3, n*3, 3);
+    newM = zeros(m*3, n*3, o);
     
     for i=1:m*3
         for j=1:n*3
