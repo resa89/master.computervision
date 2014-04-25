@@ -1,10 +1,10 @@
-function outputPic = transfrom(A, gray, neighbor)
+function outputPic = transfrom(A, gray, a0, neighbor)
     [m,n] = size(gray);
-    newM = repmat(uint8(0),m*3, n*3);
+    newM = zeros(m*3, n*3);
     
     for i=1:m*3
         for j=1:n*3
-            tmp = [i-m j-n 0] * A;
+            tmp = [i-m j-n 0] * A + a0;
             yx0=floor(tmp);
             yx1=ceil(tmp);
 
@@ -13,6 +13,7 @@ function outputPic = transfrom(A, gray, neighbor)
                 wtConj = 1 - wt;
 
                 if neighbor
+                    % use the value of the next neighbor
                     if wt(1) >= 0.5
                         y=yx1(1);
                     else
@@ -24,8 +25,8 @@ function outputPic = transfrom(A, gray, neighbor)
                         x=yx0(2);
                     end
                     interVal = gray(y,x);
-                
                 else
+                    % biliniar interpolation
                     interTop = wtConj(2) * gray(yx0(1),yx0(2)) + wt(2) * gray(yx0(1),yx1(2));
                     interBtm = wtConj(2) * gray(yx1(1),yx0(2)) + wt(2) * gray(yx1(1),yx1(2));
                     interVal=wtConj(1) * interTop + wt(1) * interBtm;
