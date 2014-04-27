@@ -1,10 +1,11 @@
-function outputPic = transfrom(A, gray, a0, neighbor)
-    [m,n,o] = size(gray);
-    newM = zeros(m*3, n*3, o);
+function outputPic = transfrom(A, gray, a0, neighbor, newM)
+    %[m,n,o] = size(gray);
+    %newM = zeros(m*3, n*3, o);
+    [m,n,o] = size(newM);
     
-    for i=1:m*3
-        for j=1:n*3
-            tmp = [i-m j-n 0] * A + a0;
+    for i=1:m
+        for j=1:n
+            tmp = [i j] * A + a0;
             yx0=floor(tmp);
             yx1=ceil(tmp);
 

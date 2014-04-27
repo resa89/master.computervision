@@ -4,9 +4,9 @@ scale = 0.7;
 A = [cosd(alpha) -sind(alpha) 0; sind(alpha) cosd(alpha) 0; 0 0 1];
 A = transpose(A);
 
-im_uint8 = imread('ambassadors.jpg'); % JPG-Datei einlesen
-gray = rgb2gray(im_uint8);
-grayD = im2double(gray);
+img = imread('ambassadors.jpg'); % JPG-Datei einlesen
+%gray = rgb2gray(im_uint8);
+imgD = im2double(img);
 %imagesc(gray);   % Bild darstellen
 
 img = imresize(grayD, scale);
