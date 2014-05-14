@@ -16,8 +16,8 @@ y = [0 600];
 
 
 % Pixels for 1st picture
-s = 3;
-xp1 = [381/s  548/s 2316/s 2284/s];
+s = 4;
+xp1 = [381/s  450/s 2316/s 2284/s];
 yp1 = [108/s 2829/s   74/s 2829/s];
 
 % % Small pic
