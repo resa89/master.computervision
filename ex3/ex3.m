@@ -9,14 +9,14 @@ dx = 381;
 dy = 108;
 
 % All X coordinates for passpoints
-xv = [0 3.5 7 10.5 13.5];
+xv = [0 350 7 10.5 13.5];
 
 % All Y coordinates for passpoints
-y = [0 6];
+y = [0 600];
 
 
 % Pixels for 1st picture
-s = 1;
+s = 3;
 xp1 = [381/s  548/s 2316/s 2284/s];
 yp1 = [108/s 2829/s   74/s 2829/s];
 
