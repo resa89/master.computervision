@@ -22,7 +22,7 @@ function outputPic = rectification(x, xp, y, yp, img)
     [m,n,o] = size(img);
     newM = zeros(m, n, o);
 
-    minX = n;
+    maxX = 1;
     for y=1:m
         for x=1:n
             denominator = (b1*c2 - b2*c1)*x + (a2*c1 - a1*c2)*y + a1*b2 - a2*b1;
@@ -32,23 +32,23 @@ function outputPic = rectification(x, xp, y, yp, img)
             yCorrected = floor(yCorrected);
             if yCorrected > 0 && yCorrected <= m && xCorrected > 0 && xCorrected <= n
                 newM(y, x,:) = img(yCorrected, xCorrected, :);
-%                 if x > maxX 
-%                     maxX = x;
-%                 end
+                if x > maxX 
+                    maxX = x;
+                end
             end
             
             if xCorrected >= n
-                if x < minX
-                    minX = x - 1;
-                end
+                newM = newM(1:y, 1:x, :);
+                outputPic = newM;
                 break;
             end
         end
-        if yCorrected >= m
-            newM = newM(1:y-1, 1:minX, :);
-%             outputPic = newM;
-            break;
-        end
+         
+            if yCorrected >= m
+                newM = newM(1:y, 1:x, :);
+                outputPic = newM;
+                break;
+            end
     end
     outputPic = newM;
 end
