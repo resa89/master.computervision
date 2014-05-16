@@ -32,7 +32,13 @@ function outputPic = rectification(x, xp, y, yp, img)
             if yCorrected > 0 && yCorrected <= m && xCorrected > 0 && xCorrected <= n
                 newM(y, x,:) = img(yCorrected, xCorrected, :);
             end
+            
+            if yCorrected >= m && xCorrected >= n
+                newM = newM(1:y, 1:x, :);
+                outputPic = newM;
+                return;
+            end
         end
     end
-    outputPic = newM;
+    outputPic = abc;
 end
