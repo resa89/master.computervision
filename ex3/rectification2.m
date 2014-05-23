@@ -22,15 +22,25 @@ function outputPic = rectification2(x, xp, y, yp, img, newM, xStart, yStart)
     [m,n,o] = size(img);
 %     newM = zeros(m, n, o);
 
+    n2 = n/2;
+    m2 = m/2;
     for y=1:m
-        for x=1:n
+        for x=1:3*n
             denominator = (b1*c2 - b2*c1)*x + (a2*c1 - a1*c2)*y + a1*b2 - a2*b1;
             xCorrected = ((b2-c2*b3)*x + (a3*c2-a2)*y + a2*b3-a3*b2) / denominator;
             yCorrected = ((b3*c1-b1)*x + (a1-a3*c1)*y + a3*b1-a1*b3) / denominator;
             xCorrected = floor(xCorrected);
             yCorrected = floor(yCorrected);
             if yCorrected > 0 && yCorrected <= m && xCorrected > 0 && xCorrected <= n
-                newM(y + yStart, x + xStart,:) = img(yCorrected, xCorrected, :);
+                weight = (1 - abs(x-n2) / n2) * (1 - abs(m2-y)/m2);
+                if newM(y + yStart, x + xStart, 1) == 0
+                    newM(y + yStart, x + xStart,1:3) = img(yCorrected, xCorrected, :);
+                    newM(y + yStart, x + xStart,4) = weight;
+                else
+                    w1 = newM(y + yStart, x + xStart,4);
+                    w3 = 1/(w1 + weight);
+                    newM(y + yStart, x + xStart,1:3) = w1*w3*newM(y + yStart, x + xStart,1:3) + weight*w3*img(yCorrected, xCorrected, :);
+                end
             end
         end
     end
