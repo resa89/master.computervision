@@ -1,0 +1,9 @@
+function Uebung4_2()
+
+signal = load('signals.mat');
+tau = 
+lpsignal = lowpass(signal, tau)
+show_seq(seq);
+
+
+end

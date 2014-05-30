@@ -1,4 +1,4 @@
-function make_seq(dimt, dimy, dimx, v)
+function M_out = make_seq(dimt, dimy, dimx, v)
     % dimt 
     
     % wavelength lamda = 0.5 * dimx 
@@ -9,17 +9,19 @@ function make_seq(dimt, dimy, dimx, v)
     
     % v pixel per timeslot
     
-    M = zeros(dimx, dimx);
+    M = zeros(dimx, dimx);  %evtl. noch dimt
+    %M_out = zeros(dimt, dimx, dimx);  %evtl. noch dimt
     
     xScale = 4 * pi / dimx;
-    for t=0:dimt
+    for t=1:dimt
         offset = t * v;
         for x=0:dimx
             fx = sin(xScale * (x + offset)); % fx [-1 1];
 %             y = fx * dimy;
             M(:,x+1) = fx;
         end
-        imshow(M);
+        % imshow(M);
+        %M_out(t,:,:)=M(:,:);
         show_img(M, [-dimy dimy], 'auto', 'image sequence', 256);
         waitforbuttonpress;
     end

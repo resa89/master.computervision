@@ -1,0 +1,29 @@
+function sinus_seq = make_seq(dimt, dimy, dimx, v)
+
+lambda = 0.5*dimx;
+mean_brightness = 0;
+%contrast = (Imax - Imin) / (Imax + Imin);
+out = zeros(dimt,dimy,dimx);
+
+for i=1:dimt
+    for x=1:dimx
+       out(i,:,x) =  * sin(((2*pi/lambda)*x) - (i-1)) + 1;
+    end
+      %local_pic(:,:) = out(i,:,:);
+     % out(i,:,:) = filter2(local_pic,'gaussian');
+%     %lowpass = filter2([1/9 1/9 1/9; 1/9 1/9 1/9; 1/9 1/9 1/9],local_pic,'same');
+%     %highpass = local_pic - lowpass; 
+%     %out(i,:,:) = lowpass + highpass;
+%     mi=min(min(local_pic));
+%     ma=max(max(local_pic));
+%     di=ma+mi;
+%     da=ma-mi;
+%     out(i,:,:) =(da/di)*local_pic; 
+end
+
+
+sinus_seq.seq = out;
+
+return 
+
+

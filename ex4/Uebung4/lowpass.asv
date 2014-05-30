@@ -1,0 +1,28 @@
+function lpsignal = lowpass(signal,tau)
+%s[n+1] = a* x[n] + (1-a) * s[n]
+% zeitdiskreter (rekursiver) Tiefpass 1. Ordnung
+
+frames = size(signal,2)
+deltaT = 1;
+a = deltaT/tau;
+
+%a = deltaT / tau
+% a = w0(Grenzfrequenz=2 * Pi * f0 = 1/tau = frequenz) * deltaT
+% tau  = 2 --> a = 0.5
+%w0 als Grenzfrequenz (=2 * Pi * f0
+
+
+%p1 = exp(-w0*T)
+%
+p1 = exp(-a);
+%exp(a) = (1-a)
+%p1 = (1-a);
+    old = 0
+for n=1:frames-1
+    signal(n1)  = a * signal(n+1) + p1 * signal(n);
+    old = signal
+end
+
+
+lpsignal = signal;
+return 

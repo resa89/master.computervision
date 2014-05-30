@@ -1,0 +1,24 @@
+
+
+
+
+function show_seq(seq)
+
+
+figure;
+subplot(3,3,1);
+local_seq = seq.seq;
+size(local_seq)
+
+for
+pic1(:,:) = local_seq(1,:,:);
+size(pic1)
+imshow(pic1);
+
+
+
+
+
+
+
+end 
