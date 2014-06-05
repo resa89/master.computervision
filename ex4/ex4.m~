@@ -62,47 +62,35 @@ title('lowpass step');
 %% Aufgabe 3 a
 clear all;
 
-t = 100;
-y = 5;
-x = 50;
+signal = matfile('signals.mat');
 
-result_r = zeros([51 51]);
-iV = 1;
-iCor = 2;
-for v=0:50
 
-    signal = make_seq(t, y, x, v-25);
-    signal1 = signal(:,1,10);
-    signal2 = signal(:,1,20);
+signal1 = signal.rectangle;
+signal2 = signal.rectangle;
 
-    tau = 2;
-    
-%     figure;
-    % subplot(2,2,1);
-    % plot(signal1);
-    % title('signal1');
-    % subplot(2,2,2);
-    % plot(signal2);
-    % title('signal2');
-    % 
-    % lowpass = lowpass(signal1,tau);
-    % 
-    corrSignal = detector(signal1, signal2, tau);
+tau = 2;
 
-    % subplot(2, 2,3);
-    % plot(lowpass);
-    % title('signal 1 - lowpass');
-    % subplot(2, 2,4);
-%     plot(corrSignal);
-%     title('correlation detector');
-    result_r(v+1,iV) = v-25;
-    result_r(v+1,iCor) = corrSignal;
-end
-figure; 
-plot(result_r(:,iV),result_r(:,iCor));
 
-find(result_r(:,iCor)==max(result_r(:,iCor))) -25
-result_r(26,iCor)
+figure;
+subplot(2,2,1);
+plot(signal1);
+title('signal1');
+subplot(2,2,2);
+plot(signal2);
+title('signal2');
+
+lowpass = lowpass(signal1,tau);
+signal2 = signal2-
+corrSignal = detector(signal1, signal2, tau);
+
+subplot(2, 2,3);
+plot(lowpass);
+title('signal 1 - lowpass');
+subplot(2, 2,4);
+plot(corrSignal);
+title('correlation detector');
+
+
 
 %% Aufgabe 3 b
 
