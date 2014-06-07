@@ -59,14 +59,14 @@ subplot(2, 2,4);
 plot(lpsignal_step);
 title('lowpass step');
 
-%% Aufgabe 3 a
+%% Aufgabe 3 a-d
 clear all;
 
 t = 100;
 y = 5;
 x = 50;
 
-result_r = zeros([51 51]);
+corArr1 = zeros([51 51]);
 iV = 1;
 iCor = 2;
 for v=0:50
@@ -75,7 +75,7 @@ for v=0:50
     signal1 = signal(:,1,10);
     signal2 = signal(:,1,20);
 
-    tau = 2;
+    tau = 1.1;
     
 %     figure;
     % subplot(2,2,1);
@@ -95,82 +95,62 @@ for v=0:50
     % subplot(2, 2,4);
 %     plot(corrSignal);
 %     title('correlation detector');
-    result_r(v+1,iV) = v-25;
-    result_r(v+1,iCor) = corrSignal;
+    corArr1(v+1,iV) = v-25;
+    corArr1(v+1,iCor) = corrSignal;
 end
-figure; 
-plot(result_r(:,iV),result_r(:,iCor));
+% figure; 
+% plot(corArr1(:,iV),corArr1(:,iCor));
 
-find(result_r(:,iCor)==max(result_r(:,iCor))) -25
-result_r(26,iCor)
+find(corArr1(:,iCor)==max(corArr1(:,iCor))) -25
+corArr1(26,iCor)
 
-%% Aufgabe 3 b
 
-dimt = 100;
-dimy = 5;
-dimx = 50;
-%v = 5;
+% Aufgabe 3 c
 
-result_r = zeros([51 51]);
+t = 100;
+y = 5;
+x = 50;
 
-%figure;
-for velocity=0:50
-    %c=25;
-    seq1 = make_seq(dimt, dimy, dimx, velocity-25);
+corArr2 = zeros([51 51]);
+for v=0:50
+
+    signal = make_seq(t, y, x, v-25);
+    signal1 = signal(:,1,10);
+    signal2 = signal(:,1,20);
+
     tau = 1.1;
-    speed = velocity-25;
-    s1 = seq1.seq(:,1,10);
-    %subplot(2, 2,1);
-    %plot(s1)
-    s2 = seq1.seq(:,1,20);
-    %subplot(2, 2,2);
-    %plot(s2);
-    corr = detector(s1,s2,tau);
-    result_r(velocity+1,1) = speed;
-    result_r(velocity+1,2) = corr;
+    
+    corrSignal = leftdetector(signal1, signal2, tau);
+
+    corArr2(v+1,iV) = v-25;
+    corArr2(v+1,iCor) = corrSignal;
 end
+% figure; 
+% plot(corArr2(:,iV),corArr2(:,iCor));
 
-figure; 
-plot(result_r(:,1),result_r(:,2));
-
-ind1 = find(result_r(:,2)==max(result_r(:,2)));
-result_r(ind1,1)
-
+find(corArr2(:,iCor)==max(corArr2(:,iCor))) -25
+corArr2(26,iCor)
 
 
-result_l = zeros([51 51]);
+figure;
+subplot(2,2,1);
+plot(corArr1(:,iV),corArr1(:,iCor));
+title('right');
+subplot(2,2,2);
+plot(corArr2(:,iV),corArr2(:,iCor));
+title('left');
 
-%Linksdetektor
-%figure;
-for velocity=0:50
-    %c=25;
-    seq1 = make_seq(dimt, dimy, dimx, velocity-25);
-    tau = 1.1;
-    speed = velocity-25;
-    s1 = seq1.seq(:,1,10);
-    %subplot(2, 2,1);
-    %plot(s1)
-    s2 = seq1.seq(:,1,20);
-    %subplot(2, 2,2);
-    %plot(s2);
-    corr = ldetector(s1,s2,tau);
-    result_l(velocity+1,1) = speed;
-    result_l(velocity+1,2) = corr;
+corArrSub = zeros([51 51]);
+corArrAdd = zeros([51 51]);
+for v=0:50
+    corArrSub(v+1,iV) = v-25;
+    corArrAdd(v+1,iV) = v-25;
+    corArrSub(v+1,iCor) = corArr1(v+1,iCor) - corArr2(v+1,iCor);
+    corArrAdd(v+1,iCor) = corArr1(v+1,iCor) + corArr2(v+1,iCor);
 end
-
-figure; 
-plot(result_l(:,1),result_l(:,2));
-
-ind2 = find(result_l(:,2)==max(result_l(:,2)));
-result_l(ind2,1)
-
-
-%Differenz
-diff = zeros([51 51]);
-diff(:,1) = result_l(:,1);
-diff(:,2) = abs(result_l(:,2) - result_r(:,2));
-figure; 
-plot(diff(:,1),diff(:,2));
-
-
-
+subplot(2,2,3);
+plot(corArrSub(:,iV),corArrSub(:,iCor));
+title('left - right');
+subplot(2,2,4);
+plot(corArrAdd(:,iV),corArrAdd(:,iCor));
+title('left + right');

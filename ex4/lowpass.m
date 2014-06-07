@@ -8,24 +8,11 @@ function lpsignal = lowpass(signal,tau)
             signalSize = size(signal,1);
         end
     
-    %signal(1) = 0;
-    
-    old = 0;
-    
+    old = 0;   
     for n=1:signalSize
-        % zeitdiskreter, rekursiver Tiefpass 1. Ordnung:
-        % s[n+1] = a * x[n] + (1-a) * s[n],     0<a<1
-%         if n==1
-%             signal(n)  = 0;
-%         else
-%             signal(n)  = a * signal(n-1) + (1-a) * signal(n);
-%         end
-        
         signal(n)  = a * signal(n) + (1-a) * old;
         old = signal(n);
-
     end
 
     lpsignal = signal;
-    
 return 
