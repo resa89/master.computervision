@@ -10,6 +10,7 @@ function M_out = make_seq(dimt, dimy, dimx, v)
     % v pixel per timeslot
     
     M = zeros(dimt, dimx, dimx);  %evtl. noch dimt
+    imgM = zeros(dimx, dimx);
     %M_out = zeros(dimt, dimx, dimx);  %evtl. noch dimt
     
     xScale = 4 * pi / dimx;
@@ -19,8 +20,10 @@ function M_out = make_seq(dimt, dimy, dimx, v)
             fx = sin(xScale * (x + offset)); % fx [-1 1];
 %             y = fx * dimy;
             M(t, :, x+1) = fx;
+            imgM(:, x+1) = fx;
         end
-%         show_img(M(t, :, :), [-dimy dimy], 'auto', 'image sequence', 256);
+        
+%         show_img(imgM, [-dimy dimy], 'auto', 'image sequence', 256);
 %         waitforbuttonpress;
     end
     

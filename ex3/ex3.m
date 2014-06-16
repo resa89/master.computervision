@@ -3,7 +3,7 @@ clc; clear; close all;
     %Methode 1: Higher Weight
     %Methode 2: Weighted Average
     %Methode 3: Bandpass
-    method = 3;
+    method = 2;
     
     img = imread('IMG_0821.JPG'); % JPG-Datei einlesen
     img2 = imread('IMG_0822.JPG'); % JPG-Datei einlesen
